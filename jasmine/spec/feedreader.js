@@ -32,6 +32,9 @@ $(function() {
          * and that the URL is not empty.
          */
 
+         it('url defined', function() {
+         });
+
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
