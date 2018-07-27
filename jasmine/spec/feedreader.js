@@ -78,6 +78,7 @@ $(function() {
             let bodyTest = document.querySelector('body');
             let menuTest = document.querySelector('.menu-icon-link');
 
+            //on clicks, menu item opens and closes
             menuTest.click();
             expect(bodyTest.classList.contains('menu-hidden')).toBe(false);
             menuTest.click();
@@ -97,7 +98,7 @@ $(function() {
          beforeEach(function(done) {
            loadFeed(0, done);
          });
-
+         //checks the size of the feed to be greater than 0
          it('loadFeed complete', function() {
            let feedTest = document.querySelector('.feed');
            expect(feedTest.children.length > 0).toBe(true);
@@ -111,5 +112,24 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+         let feedTest = document.querySelector('.feed');
+         let feedArr = [];
+         beforeEach(function(done) {
+           //pushes entries into my feedArr
+           Array.from(feedTest.children).forEach(function(entry) {
+             feedArr.push(entry.innerText);
+           });
+           loadFeed(0);
+           loadFeed(1, done);
+         });
+
+         //help from Matt Cranford's walkthrough
+         //checks in the entry and index of my array are equal
+         it('changes', function() {
+           Array.from(feedTest.children).forEach(function(entry, index) {
+             expect(entry.innerText === feedArr[index]).toBe(false);
+           });
+
+         });
     });
 }());
