@@ -48,7 +48,7 @@ $(function() {
          it('name defined', function() {
            for(let feed of allFeeds) {
              expect(feed.name).toBeDefined();
-             expect(feed.name).not.toBe(0);
+             expect(feed.name.length).not.toBe(0);
            }
          });
     });
