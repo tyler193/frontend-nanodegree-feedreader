@@ -115,17 +115,16 @@ $(function() {
          let feedOne;
          let feedTwo;
          beforeEach(function(done) {
-           loadFeed(0);
-           feedOne = document.querySelector('.feed').innerText;
-           done();
-           console.log(feedOne);
+           loadFeed(0, function() {
+             feedOne = document.querySelector('.feed').innerText;
+             loadFeed(1, function() {
+               feedTwo = document.querySelector('.feed').innerText;
+               //console.log(feedOne, feedTwo);
+               done();
+             });
+           });
          });
-         afterEach(function(done) {
-           loadFeed(1);
-           feedTwo = document.querySelector('.feed').innerText;
-           done();
-           console.log(feedTwo);
-         });
+
          //checks if texts are diffents
          it('changes', function() {
            expect(feedOne).not.toBe(feedTwo);
