@@ -100,8 +100,8 @@ $(function() {
          });
          //checks the size of the feed to be greater than 0
          it('loadFeed complete', function() {
-           let feedTest = document.querySelector('.feed');
-           expect(feedTest.children.length > 0).toBe(true);
+           let feedTest = document.querySelector('.feed').querySelectorAll('.entry');
+           expect(feedTest.length > 0).toBe(true);
          });
     });
 
@@ -112,23 +112,23 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-         let feedTest = document.querySelector('.feed');
-         let feedArr = [];
+         let feedOne;
+         let feedTwo;
          beforeEach(function(done) {
            loadFeed(0);
-           //pushes entries into my feedArr
-           Array.from(feedTest.children).forEach(function(entry) {
-             feedArr.push(entry.innerText);
-           });
-           loadFeed(1, done);
+           feedOne = document.querySelector('.feed').innerText;
+           done();
+           console.log(feedOne);
          });
-
-         //help from Matt Cranford's walkthrough
-         //checks in the entry and index of my array are equal
+         afterEach(function(done) {
+           loadFeed(1);
+           feedTwo = document.querySelector('.feed').innerText;
+           done();
+           console.log(feedTwo);
+         });
+         //checks if texts are diffents
          it('changes', function() {
-           Array.from(feedTest.children).forEach(function(entry, index) {
-             expect(entry.innerText === feedArr[index]).toBe(false);
-           });
+           expect(feedOne).not.toBe(feedTwo);
 
          });
     });
